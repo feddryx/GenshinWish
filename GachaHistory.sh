@@ -6,7 +6,6 @@ else
 fi
 
 am start com.miHoYo.GenshinImpact/com.miHoYo.GetMobileInfo.MainActivity
-am start com.termux/.app.TermuxActivity
 adb logcat -e "https://gs.hoyoverse.com/" | while read -r line; do
   echo "$line"
   if [[ "$line" == *"MiHoYoWebview"* ]]; then
