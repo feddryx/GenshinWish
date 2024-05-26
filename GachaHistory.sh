@@ -13,7 +13,7 @@ adb logcat -e "https://gs.hoyoverse.com/" | while read -r line; do
     pkill -f "adb logcat"
     url=$(echo "$line" | grep -oP 'url:\K[^,]*')
     termux-clipboard-set $url
-    echo "URL copied: $url'
+    termux-toast "URL copied: $url'
     break
   fi
 done
