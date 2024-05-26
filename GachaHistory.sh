@@ -15,4 +15,4 @@ adb logcat -e "https://gs.hoyoverse.com/" | while read -r line; do
     break
   fi
 done
-am start com.termux/.app.TermuxActivity
+am start --activity-clear-task com.termux/.app.TermuxActivity
