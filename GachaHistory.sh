@@ -1,6 +1,18 @@
-am start -n com.miHoYo.GenshinImpact/com.miHoYo.GetMobileInfo.MainActivity
-echo ''
-url=$(sudo logcat -m 1 -e "OnGetWebViewPageFinish.+https.+gacha.+/log" | grep -oE "https.+/log")
-termux-clipboard-set "$url"
-termux-toast URL copied!
-echo "URL: $url"
+if adb devices | grep -q 'device'; then :
+else
+  echo "Connecting to adb..."
+  local port=$(nmap -sT localhost -p30000-49999 | awk -F/ '/tcp open/{print $1; exit}')
+  adb connect localhost:$port
+fi
+
+am start com.miHoYo.GenshinImpact/com.miHoYo.GetMobileInfo.MainActivity
+am start com.termux/.app.TermuxActivity
+adb logcat -e "https://gs.hoyoverse.com/" | while read -r line; do
+  echo "$line"
+  if [[ "$line" == *"MiHoYoWebview"* ]]; then
+    echo "Detected 'MiHoYoWebview', stopping logcat..." &
+    termux-toast "Detected 'MiHoYoWebview', stopping logcat..."
+    pkill -f "adb logcat"
+    break
+  fi
+done
