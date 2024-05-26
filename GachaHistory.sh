@@ -12,9 +12,9 @@ adb logcat -e "https://gs.hoyoverse.com/" | while read -r line; do
     termux-toast "Detected 'MiHoYoWebview', stopping logcat..."
     pkill -f "adb logcat"
     url=$(echo "$line" | grep -oP 'url:\K[^,]*')
-    echo "URL founded: $url'
+    echo "URL founded: $url"
     termux-clipboard-set $url &
-    termux-toast "URL copied!'
+    termux-toast "URL copied!"
     break
   fi
 done
