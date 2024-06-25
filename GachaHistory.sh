@@ -1,4 +1,4 @@
-if adb devices | grep -q 'device'; then :
+if adb devices | grep -E '(:[0-9]{4,})\s+device'; then :
 else
   echo "Connecting to adb..."
   local port=$(nmap -sT localhost -p30000-49999 | awk -F/ '/tcp open/{print $1; exit}')
