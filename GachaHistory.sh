@@ -24,7 +24,7 @@ adbw() {
     if adb devices | grep -E 'localhost:[0-9]{4,}\s+device'; then
       return 0
     else
-      echo "ERROR: Make sure the wireless debugging are still active and not has port config at the similar range."
+      echo "ERROR: Make sure the wireless debugging are still active and does not have a port conflic at the similar range."
       return 1
     fi
   fi
