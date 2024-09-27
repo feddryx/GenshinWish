@@ -24,7 +24,7 @@ adbw() {
     if adb devices | grep -E 'localhost:[0-9]{4,}\s+device'; then
       return 0
     else
-      echo "ERROR: Make sure the wireless debugging are still active and does not have a port conflic at the similar range."
+      echo "ERROR: Make sure the wireless debugging are still active and no port conflic exists at the similar range."
       return 1
     fi
   fi
@@ -34,7 +34,7 @@ adbw
 if [ $? -eq 0 ]; then
   am start com.miHoYo.GenshinImpact/com.miHoYo.GetMobileInfo.MainActivity
   adb logcat -e "https://gs.hoyoverse.com/" | while read -r line; do
-    if [[ "$line" == *"MiHoYoWebview"* ]]; then
+    if [[ "$line" == *"MiHoYoWebview"* && "$line" == *"init_type"*]]; then
       echo "Detected 'MiHoYoWebview', stopping logcat..." &
       termux-toast "Detected 'MiHoYoWebview', stopping logcat..."
       pkill -f "adb logcat"
