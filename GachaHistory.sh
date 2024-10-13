@@ -34,7 +34,7 @@ adbw
 if [ $? -eq 0 ]; then
   am start com.miHoYo.GenshinImpact/com.miHoYo.GetMobileInfo.MainActivity
   adb logcat -e "https://gs.hoyoverse.com/" | while read -r line; do
-    if [[ "$line" == *"MiHoYoWebview"* && "$line" == *"init_type"*]]; then
+    if [[ "$line" == *"MiHoYoWebview"* && "$line" == *"init_type"* ]]; then
       echo "Detected 'MiHoYoWebview', stopping logcat..." &
       termux-toast "Detected 'MiHoYoWebview', stopping logcat..."
       pkill -f "adb logcat"
